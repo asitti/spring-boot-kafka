@@ -1,0 +1,9 @@
+
+
+sudo docker exec -i -t springbootkafka_kafka_1 /bin/bash
+
+unset JMX_PORT since it conflicts when running these commands:
+
+    $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zk:2181 --replication-factor 1 --partitions 1 --topic test
+
+    $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zk:2181 --replication-factor 3 --partitions 100 --topic test3-100
