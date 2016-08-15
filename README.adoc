@@ -1,9 +1,19 @@
 
+1. Set the KAFKA_ADVERTISED_HOST_NAME for your machine
 
-sudo docker exec -i -t springbootkafka_kafka_1 /bin/bash
+2. Execute docker-compose and scale
 
-unset JMX_PORT since it conflicts when running these commands:
+    [sudo] docker-compose up -d
+    [sudo] docker-compose scale kafka=3
+
+3. Log in to an instance and verify
+
+    [sudo] docker exec -i -t springbootkafka_kafka_1 /bin/bash
+
+4. Create a topic
+
+NOTE: unset JMX_PORT since it conflicts when running these commands:
 
     $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zk:2181 --replication-factor 1 --partitions 1 --topic test
 
-    $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zk:2181 --replication-factor 3 --partitions 100 --topic test3-100
+    $KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper zk:2181 --replication-factor 3 --partitions 100 --topic topic3-100
