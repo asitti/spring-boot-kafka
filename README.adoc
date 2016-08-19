@@ -1,6 +1,8 @@
 
 1. Set the KAFKA_ADVERTISED_HOST_NAME for your machine
 
+    on Mac run % export EXTERNAL_IP=$(ifconfig en0 | awk '/inet / {print $2}')
+
 2. Execute docker-compose and scale
 
     [sudo] docker-compose up -d

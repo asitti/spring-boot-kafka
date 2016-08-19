@@ -21,7 +21,7 @@ public class KafkaProducerConfig {
   @Bean
   public Map<String, Object> producerConfigs() {
     Map<String, Object> props = new HashMap<>();
-    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:32791");
+    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
     props.put(ProducerConfig.RETRIES_CONFIG, 0);
     props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
     props.put(ProducerConfig.LINGER_MS_CONFIG, 1);

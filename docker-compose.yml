@@ -3,21 +3,43 @@ services:
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
-      - "2181"
-  kafka:
+      - "2181:2181"
+  kafka_a:
     image: wurstmeister/kafka
     ports:
-      - "9092"
-      - "9999"
+      - "9092:9092"
     links:
       - zookeeper:zk
     depends_on:
       - zookeeper
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 10.9.20.150
-      #KAFKA_ADVERTISED_HOST_NAME: 10.131.126.233
-      #KAFKA_ADVERTISED_HOST_NAME: 192.168.1.212
+      KAFKA_ADVERTISED_HOST_NAME: ${EXTERNAL_IP}
       KAFKA_ZOOKEEPER_CONNECT: zk:2181
-      JMX_PORT: 9999
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  kafka_b:
+    image: wurstmeister/kafka
+    ports:
+      - "9192:9092"
+    links:
+      - zookeeper:zk
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${EXTERNAL_IP}
+      KAFKA_ZOOKEEPER_CONNECT: zk:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  kafka_c:
+    image: wurstmeister/kafka
+    ports:
+      - "9292:9092"
+    links:
+      - zookeeper:zk
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${EXTERNAL_IP}
+      KAFKA_ZOOKEEPER_CONNECT: zk:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
