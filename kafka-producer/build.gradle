@@ -15,14 +15,13 @@ repositories {
 
 
 dependencies {
+    compile('org.springframework.kafka:spring-kafka:1.1.0.M1')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-cache')
     compile('org.springframework.boot:spring-boot-devtools')
     compile('org.projectlombok:lombok')
     compile('org.springframework.retry:spring-retry')
     compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.kafka:spring-kafka:1.1.0.BUILD-SNAPSHOT')
-    //compile('org.apache.kafka:kafka_2.11:0.10.0.0')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

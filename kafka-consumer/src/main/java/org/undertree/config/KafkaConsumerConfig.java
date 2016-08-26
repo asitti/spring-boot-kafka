@@ -1,8 +1,10 @@
 package org.undertree.config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,10 +12,14 @@ import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.listener.AbstractMessageListenerContainer;
+import org.springframework.kafka.listener.BatchAcknowledgingMessageListener;
+import org.springframework.kafka.listener.BatchMessageListener;
+import org.springframework.kafka.listener.adapter.FilteringBatchMessageListenerAdapter;
+import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
 import org.springframework.retry.support.RetryTemplate;
 
 /**
- * Created by ss65560 on 8/15/16.
  */
 @EnableKafka
 @Configuration
@@ -42,26 +48,7 @@ public class KafkaConsumerConfig {
     ConcurrentKafkaListenerContainerFactory<String, String> factory =
         new ConcurrentKafkaListenerContainerFactory<>();
     factory.setConsumerFactory(consumerFactory());
+    factory.setConcurrency(2);
     return factory;
   }
-
-  /*
-  @Bean
-  public ConcurrentKafkaListenerContainerFactory<String, String> retryKafkaListenerContainerFactory() {
-    ConcurrentKafkaListenerContainerFactory<String, String> factory =
-        new ConcurrentKafkaListenerContainerFactory<>();
-    factory.setConsumerFactory(consumerFactory());
-    factory.setRetryTemplate(new RetryTemplate());
-    factory.setRecordFilterStrategy(new RecordFilterStrategy<String, String>() {
-
-      @Override
-      public boolean filter(ConsumerRecord<String, String> consumerRecord) {
-        return consumerRecord.value().equals("bar");
-      }
-
-    });
-    return factory;
-  }
-  */
-
 }
