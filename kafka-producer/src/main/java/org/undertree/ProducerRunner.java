@@ -23,12 +23,12 @@ import org.springframework.stereotype.Component;
 public class ProducerRunner implements CommandLineRunner {
   static final Logger logger = LoggerFactory.getLogger(ProducerRunner.class);
 
-  private final KafkaTemplate<Integer, String> kafkaTemplate;
+  private final KafkaTemplate<String, String> kafkaTemplate;
 
   private final WatchEvent.Kind<?>[] WATCH_EVENTS = { StandardWatchEventKinds.ENTRY_CREATE };
 
   @Autowired
-  public ProducerRunner(KafkaTemplate<Integer, String> kafkaTemplate) {
+  public ProducerRunner(KafkaTemplate<String, String> kafkaTemplate) {
     this.kafkaTemplate = kafkaTemplate;
   }
 
@@ -71,7 +71,7 @@ public class ProducerRunner implements CommandLineRunner {
             try (Stream<String> stream = Files.lines(fileName)) {
               stream.map(s -> s.trim())
                     .filter(s -> !s.isEmpty() && !s.startsWith("#"))
-                    .forEach(s -> kafkaTemplate.send("test3-100", s));
+                    .forEach(s -> kafkaTemplate.send("topic3-100", s));
             }
           }
         }
